@@ -19,7 +19,7 @@ class Matrix_Norm_P:
         current_sum = 0
         for first_digit in range(digit_from, digit_to):
             self.__digits_lst.append(first_digit)
-            current_sum += self.__get_component(n - first_digit, first_digit, m - 1, self.__digits_lst)
+            current_sum += self.__get_component(n - first_digit, first_digit, m - 1)
             self.__digits_lst.pop(-1)
         return current_sum
 
@@ -33,12 +33,15 @@ class Matrix_Norm_P:
         return current_sum ** (1 / p)
 
     def calculate_p_norm(self,A):
-        print(len(A[0,:]))
         self.__p(self.__steps,len(A[0,:]))
         norm_values=[]
-
+        norm_vectors=[]
         W = np.matrix(np.array(self.__vectors_set) ** (1 / self.__p_value))
+        print(W)
         U = A * W.T
         for u in U.T:
             norm_values.append(self.get_p_norm(np.array(u)[0], self.__p_value))
-        return max(norm_values)
+            norm_vectors.append(np.array(u)[0])
+
+        maximum_value=max(norm_values)
+        return maximum_value,norm_vectors[norm_values.index(maximum_value)]

@@ -37,7 +37,6 @@ class Matrix_Norm_P:
         norm_values=[]
         norm_vectors=[]
         W = np.matrix(np.array(self.__vectors_set) ** (1 / self.__p_value))
-        print(W)
         U = A * W.T
         for u in U.T:
             norm_values.append(self.get_p_norm(np.array(u)[0], self.__p_value))
